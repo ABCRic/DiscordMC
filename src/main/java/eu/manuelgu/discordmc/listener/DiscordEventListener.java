@@ -36,6 +36,10 @@ public class DiscordEventListener {
 
     @EventSubscriber
     public void userChat(MessageReceivedEvent event) {
+    	// ignore bot messages if enabled
+    	if(plugin.getConfig().getBoolean("settings.ignore_bot_messages", false) && event.getAuthor().isBot())
+    		return;
+    	
         if (commands && event.getMessage().getContent().startsWith(commandPrefix) && event.getMessage().getContent().length() > 1) {
             // Commands enabled and it is a valid command
             switch (event.getMessage().getContent().substring(1)) {
