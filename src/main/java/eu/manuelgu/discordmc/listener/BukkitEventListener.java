@@ -36,7 +36,7 @@ public class BukkitEventListener implements Listener {
         }
         final String username = event.getPlayer().getName();
         final String formattedMessage = getPlugin().getConfig().getString("settings.templates.player_join_minecraft")
-                .replaceAll("%user", username);
+                .replace("%user", username);
 
         MessageAPI.sendToDiscord(formattedMessage);
     }
@@ -54,7 +54,7 @@ public class BukkitEventListener implements Listener {
         }
         final String username = event.getPlayer().getName();
         final String formattedMessage = getPlugin().getConfig().getString("settings.templates.player_leave_minecraft")
-                .replaceAll("%user", username);
+                .replace("%user", username);
 
         MessageAPI.sendToDiscord(formattedMessage);
     }

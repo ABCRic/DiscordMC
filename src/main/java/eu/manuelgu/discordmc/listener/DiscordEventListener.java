@@ -67,16 +67,16 @@ public class DiscordEventListener {
                     String id = u.getStringID();
 
                     // User name
-                    content = content.replaceAll("<@" + id + ">", "@" + name);
+                    content = content.replace("<@" + id + ">", "@" + name);
                     // Nick name
-                    content = content.replaceAll("<@!" + id + ">", "@" + name);
+                    content = content.replace("<@!" + id + ">", "@" + name);
                 }
 
                 for (IRole r : roleMentions) {
                     String roleName = r.getName();
                     String roleId = r.getStringID();
 
-                    content = content.replaceAll("<@&" + roleId + ">", "@" + roleName);
+                    content = content.replace("<@&" + roleId + ">", "@" + roleName);
                 }
 
                 final String finalContent = content;

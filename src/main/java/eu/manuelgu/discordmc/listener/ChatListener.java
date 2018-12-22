@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
 
 public class ChatListener implements Listener {
     @Getter
@@ -55,10 +56,11 @@ public class ChatListener implements Listener {
         String format = DiscordMC.getUserFormats().getString(username, "-");
         if (!useIngameFormat || Objects.equals(format, "-")) {
             formattedMessage = getPlugin().getConfig().getString("settings.templates.chat_message_discord")
-                    .replaceAll("%user", username)
-                    .replaceAll("%message", message);
+                    .replace("%user", username)
+                    .replace("%message", message);
         } else {
-            formattedMessage = format.replace("%1$s", "**" + username + "**").replace("%2$s", message);
+            formattedMessage = format.replaceAll("%1$s", Matcher.quoteReplacement("**" + username + "**"))
+            		                 .replaceAll("%2$s", Matcher.quoteReplacement(message));
         }
 
 
@@ -71,7 +73,7 @@ public class ChatListener implements Listener {
                     List<IUser> users = DiscordMC.getClient().getGuilds().get(0).getUsersByName(s, true);
 
                     if (!users.isEmpty()) {
-                        formattedMessage = formattedMessage.replaceAll("@" + s, "<@" + users.get(0).getStringID() + ">");
+                        formattedMessage = formattedMessage.replace("@" + s, "<@" + users.get(0).getStringID() + ">");
                     }
                 }
             }

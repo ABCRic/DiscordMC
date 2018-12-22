@@ -2,6 +2,7 @@ package eu.manuelgu.discordmc;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,7 +34,7 @@ public class MessageAPI {
 
         DiscordMC.getSubscribedPlayers().forEach(uuid -> Bukkit.getPlayer(uuid).sendMessage(
                 EmojiParser.parseToAliases(formattedMessage
-                        .replaceAll("%message", ChatColor.stripColor(message)))));
+                        .replace("%message", ChatColor.stripColor(message)))));
     }
 
     /**
@@ -47,7 +48,7 @@ public class MessageAPI {
         String formattedMessage = getFormattedMessage(origin, username);
 
         Bukkit.getConsoleSender().sendMessage(
-                EmojiParser.parseToAliases(formattedMessage.replaceAll("%message", ChatColor.stripColor(message))));
+                EmojiParser.parseToAliases(formattedMessage.replace("%message", ChatColor.stripColor(message))));
     }
 
     private static String getFormattedMessage(final IChannel origin, final String username) {
@@ -59,7 +60,8 @@ public class MessageAPI {
                             .replace("%user", username)
                             .replace("%channel", origin.getName()));
         } else {
-            formattedMessage = format.replace("%1$s", username).replace("%2$s", "%message");
+            formattedMessage = format.replaceAll("%1$s", Matcher.quoteReplacement(username))
+            		                 .replaceAll("%2$s", "%message");
         }
         return formattedMessage;
     }
