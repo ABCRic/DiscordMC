@@ -89,7 +89,7 @@ public class DiscordCommand implements CommandExecutor {
                 }
 
                 String name = lookupUser[0].getName();
-                Optional<String> game = lookupUser[0].getPresence().getPlayingText();
+                Optional<String> game = lookupUser[0].getPresence().getText();
                 boolean isBot = lookupUser[0].isBot();
                 String id = lookupUser[0].getStringID();
                 List<IRole> roles = lookupUser[0].getRolesForGuild(DiscordMC.getClient().getGuilds().get(0));

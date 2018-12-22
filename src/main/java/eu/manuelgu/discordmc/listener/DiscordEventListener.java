@@ -8,8 +8,10 @@ import org.bukkit.entity.Player;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.obj.ActivityType;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.StatusType;
 
 import java.util.List;
 import java.util.function.Function;
@@ -96,7 +98,7 @@ public class DiscordEventListener {
     @EventSubscriber
     public void onReady(ReadyEvent event) {
         // Set game to Minecraft
-        DiscordMC.getClient().changePlayingText("Minecraft");
+        DiscordMC.getClient().changePresence(StatusType.ONLINE, ActivityType.PLAYING, "Minecraft");
 
         // Check for file encoder (emoji-related)
         switch (System.getProperty("file.encoding")) {
